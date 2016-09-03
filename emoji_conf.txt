@@ -1,0 +1,8 @@
+# Slack team URL to import emoji
+https://xxxx.slack.com/
+# login mail address
+xxxx@xxxx
+# login password
+xxxx
+# Slack Token to get emoji list from team
+xxxx-xxxx-xxxx 
