@@ -13,7 +13,7 @@ Move emoji from Slack team to other Slack team.
 ##How to use this script?
 1. move all files to working folder
 2. write all infomation to config file
-3. run import_emoji.rb.
-4. Wait until all emoji data are uploaded.
+3. run import_emoji.rb
+4. wait until all emoji data are uploaded
 5. done!
 

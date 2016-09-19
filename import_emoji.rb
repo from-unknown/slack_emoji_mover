@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'mechanize'
 require 'open-uri'
 require 'json'
@@ -33,7 +35,7 @@ class SlackEmoji
   # Login to Slack team and upload all emoji by using Mechanize
   #
   # @return int -1 error
-  #              0 success 
+  #              0 success
   def uploadEmoji()
     log_file = open(LogFile, 'wb')
     agent = Mechanize.new
@@ -44,7 +46,7 @@ class SlackEmoji
       response = page.form_with(:action => '/') do |form|
         formdata = {
           :email => @@email, # login mail address
-          :password => @@password # login @@password
+          :password => @@password # login password
         }
         form.field_with(:name => 'email').value = formdata[:email]
         form.field_with(:name => 'password').value = formdata[:password]
@@ -67,9 +69,9 @@ class SlackEmoji
               eform.radiobuttons_with(:name => 'mode')[0].check
               eform.file_upload_with(:name => 'img').file_name = './' + name
             end.submit
-	    # write result to log
-	    # check responce code and body to decide success or failer
-            if eresponse.code != '200' # check 
+            # write result to log
+            # check responce code and body to decide success or failer
+            if eresponse.code != '200' # check response code
               log_file.write("F Name:[" + node[0] + "] FileName:[" + name + "] Result: ")
               log_file.write("Respose code is not 200. Failed to add emoji.\n")
             elsif eresponse.body.include?(AddSuccess) # add success log
@@ -146,10 +148,10 @@ class SlackEmoji
         end
       end
     end
-    @@url = config[0] # target slack team URL 
+    @@url = config[0] # target slack team URL
     @@email = config[1] # email to login
     @@password = config[2] # password
-    @@token = config[3] # target slack team token 
+    @@token = config[3] # target slack team token
   end
 
   # read default emoji file
@@ -182,4 +184,3 @@ emoji.readEmojiJSON
 emoji.getEmojiData
 # upload emoji data
 emoji.uploadEmoji
-
