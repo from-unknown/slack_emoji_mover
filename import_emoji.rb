@@ -61,7 +61,7 @@ class SlackEmoji
 
       # loop upload emoji
       @@hash.each do |node|
-        name = File.basename(node[1])
+        name = (File.dirname(node[1])).match(/^.*\/(.+)$/)[1]+File.extname(node[1])
         agent.get(@@url + 'customize/emoji') do |emoji|
           if File.exist?('./' + name)
             eresponse = emoji.form_with(:action => '/customize/emoji') do |eform|
@@ -110,8 +110,9 @@ class SlackEmoji
   def getEmojiData
     @@hash.each do |node| # loop each node
       name = File.basename(node[1]) # get file name from URL
+      filename = (File.dirname(node[1])).match(/^.*\/(.+)$/)[1]+File.extname(node[1])
       if name !~ /^alias/
-        open(name, 'wb') do |output|
+        open(filename, 'wb') do |output|
           open(node[1]) do |data|
             output.write(data.read) # write to local
           end
